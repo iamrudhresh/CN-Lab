@@ -272,7 +272,12 @@ public class ChatClient {
 ```
 <hr></hr>
 
-### 4. (a)	Demonstrate the working of following network configuration commands in respective environment - Unix / Windows i) tcpdump ii) netstat iii) ifconfig / ipconfig iv) nslookup v) traceroute
+***4. (a)	Demonstrate the working of following network configuration commands in respective environment - Unix / Windows 
+(i) tcpdump 
+(ii) netstat 
+(iii) ifconfig / ipconfig 
+(iv) nslookup 
+(v) traceroute***
 
 #### Unix/Linux Environment
 
@@ -434,28 +439,6 @@ public class DNSClient {
 <hr></hr>
 
 ### 6. Write a program to implement ARP/RARP protocols.
-
-This Java program implements the Address Resolution Protocol (ARP) and Reverse Address Resolution Protocol (RARP) using HashMap data structures.
-
-## Overview
-
-The program consists of two classes:
-
-- **ARP**: Implements ARP functionality, including resolving IP addresses to MAC addresses and adding ARP table entries.
-- **RARP**: Implements RARP functionality, including resolving MAC addresses to IP addresses and adding RARP table entries.
-- **ARP_RARP_Main**: Contains the main method to demonstrate the usage of ARP and RARP classes.
-
-## Usage
-
-To use the ARP and RARP functionalities, follow these steps:
-
-1. **Instantiate ARP and RARP Objects**: Create objects of the ARP and RARP classes.
-
-2. **Add Entries**: Use the `addEntry` method to add ARP and RARP table entries, specifying IP addresses, MAC addresses, and vice versa.
-
-3. **Resolve Addresses**: Use the `resolve` method to resolve IP addresses to MAC addresses (ARP) or MAC addresses to IP addresses (RARP).
-
-## Example
 
 ```java
 import java.util.HashMap;
