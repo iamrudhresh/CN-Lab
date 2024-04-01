@@ -48,8 +48,9 @@ public class SimpleWebClient {
 ```
 
 Output
+
 For example, if you run the program with the URL https://www.example.com, and if the request is successful, the program will output:
-```
+```java
 Web page content has been downloaded and saved as downloaded_page.html
 
 ```
