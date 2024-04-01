@@ -54,3 +54,100 @@ For example, if you run the program with the URL https://www.example.com, and if
 Web page content has been downloaded and saved as downloaded_page.html
 
 ```
+2. Write a program to implement echo client and echo server using TCP sockets. This client/server pair runs a simple TCP socket program as an Echo Server that allows one/more client to connect to the server.
+EchoServer.java
+```
+import java.io.*;
+import java.net.*;
+
+public class EchoServer {
+    public static void main(String[] args) {
+        final int PORT = 12345;
+
+        try {
+            ServerSocket serverSocket = new ServerSocket(PORT);
+            System.out.println("Echo Server is listening on port " + PORT);
+
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Client connected: " + clientSocket);
+
+                // Handle client connection in a separate thread
+                Thread clientThread = new Thread(new ClientHandler(clientSocket));
+                clientThread.start();
+            }
+        } catch (IOException e) {
+            System.err.println("Error in server: " + e.getMessage());
+        }
+    }
+
+    private static class ClientHandler implements Runnable {
+        private Socket clientSocket;
+
+        public ClientHandler(Socket socket) {
+            this.clientSocket = socket;
+        }
+
+        @Override
+        public void run() {
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
+
+                String inputLine;
+                while ((inputLine = reader.readLine()) != null) {
+                    System.out.println("Received from client: " + inputLine);
+                    writer.println(inputLine); // Echo back to client
+                }
+
+                reader.close();
+                writer.close();
+                clientSocket.close();
+            } catch (IOException e) {
+                System.err.println("Error handling client: " + e.getMessage());
+            }
+        }
+    }
+}
+```
+EchoClient.java:
+```java
+import java.io.*;
+import java.net.*;
+
+public class EchoClient {
+    public static void main(String[] args) {
+        final String SERVER_ADDRESS = "localhost";
+        final int SERVER_PORT = 12345;
+
+        try {
+            Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+            System.out.println("Connected to server: " + socket);
+
+            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+
+            String inputLine;
+            while ((inputLine = userInput.readLine()) != null) {
+                writer.println(inputLine); // Send user input to server
+
+                if (inputLine.equals("exit")) {
+                    break; // Exit loop if user types "exit"
+                }
+
+                String serverResponse = reader.readLine();
+                System.out.println("Server says: " + serverResponse);
+            }
+
+            userInput.close();
+            reader.close();
+            writer.close();
+            socket.close();
+        } catch (IOException e) {
+            System.err.println("Error in client: " + e.getMessage());
+        }
+    }
+}
+
+```
