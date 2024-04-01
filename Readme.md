@@ -1,5 +1,5 @@
 1.	Write a simple HTTP web client program using TCP sockets to download a web page. Get the URL and pass it for buffering the content and write it as a html file and make it to get downloaded.
-```py
+```java
 import java.io.*;
 import java.net.*;
 
